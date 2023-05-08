@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-size: 16px;
+        font-family: Arial;
+        font-weight: bold;
+        margin: 0;
+      }
+      .container {
+        width: 1000px;
+        height: 323px;
+        margin: 9% auto;
+        background-image: url("http://drive.google.com/uc?export=view&id=1CX4K_ca00x8akvlbzddPl6w0oTvw7FW0");
+        background-size: contain;
+        border-radius: 4px;
+        box-shadow: 0 8px 16px rgba(35, 51, 64, 0.25);
+      }
+      .qr-holder {
+        float: right;
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 15px;
+        text-align: center;
+        line-height: 30px;
+        z-index: 1;
+      }
+      .qr-holder > img {
+        margin-top: 20px;
+      }
+      .teamName,
+      .ticket-id {
+        font-size: 14px;
+        line-height: 22px;
+        color: #230065;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="qr-holder">
+          <img src="{{QR_CODE_IMAGE_PATH}}" width="120px" height="120px" />
+          <div class="ticket-id">
+            TICKET ID:<br/>
+            <span style="font-size: 12px;"> {{TICKET_ID}} </span>
+          </div>
+          <div class="teamName">
+            TEAM NAME:<br/>
+            {{TEAM_NAME}}
+          </div>
+        </div>
+    </div>
+
+  </body>
+</html>
