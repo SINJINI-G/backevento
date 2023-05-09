@@ -11,8 +11,8 @@
       .container {
         width: 1000px;
         height: 323px;
-        margin: 9% auto;
-        background-image: url("http://drive.google.com/uc?export=view&id=1CX4K_ca00x8akvlbzddPl6w0oTvw7FW0");
+        margin: 1% auto;
+        background-image: url({{BG_URL}});
         background-size: contain;
         border-radius: 4px;
         box-shadow: 0 8px 16px rgba(35, 51, 64, 0.25);
@@ -37,22 +37,24 @@
         color: #230065;
         margin-top: 15px;
       }
-    </style>
+      </style>
   </head>
   <body>
+    
     <div class="container">
-        <div class="qr-holder">
-          <img src="{{QR_CODE_IMAGE_PATH}}" width="120px" height="120px" />
-          <div class="ticket-id">
-            TICKET ID:<br/>
-            <span style="font-size: 12px;"> {{TICKET_ID}} </span>
-          </div>
-          <div class="teamName">
-            TEAM NAME:<br/>
-            {{TEAM_NAME}}
-          </div>
+      <div class="qr-holder">
+        <img src="{{QR_CODE_IMAGE_PATH}}" width="120px" height="120px" />
+        <div class="ticket-id">
+          TICKET ID:<br/>
+          <span style="font-size: 12px;"> {{TICKET_ID}} </span>
         </div>
+        <div class="teamName">
+          TEAM NAME:<br/>
+          {{TEAM_NAME}}
+        </div>
+      </div>
     </div>
+    <div style="text-align:center"><h6><span>&copy;<span> 2023 Students Chapter CSBS - All Rights Reserved</h6><div>
 
   </body>
 </html>

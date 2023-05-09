@@ -21,7 +21,7 @@ let transporter = nodemailer.createTransport({
 
 const sendWelcomeMail = async (leaderName, leaderEmail) => {
   let info = await transporter.sendMail({
-    from: `${ORG_EMAIL}`,
+    from: ORG_EMAIL,
     to: leaderEmail,
     subject: `Registration successful for ${eventName}!!`,
 
@@ -66,29 +66,57 @@ const sendWelcomeMail = async (leaderName, leaderEmail) => {
 };
 
 // TODO:
-const sendEventMail = async (leaderEmail, teamID) => {
+const sendEventMail = async (ticketData) => {
   // Read the PDF file from disk
-  const pdfPath = path.resolve(__dirname, "..", "temp", `ticket_${teamID}.pdf`);
+  const pdfPath = path.resolve(__dirname, "..", "temp", `ticket_${ticketData.TICKET_ID}.pdf`);
+  try{
 
-  const pdfData = fs.readFileSync(pdfPath);
+    let info = await transporter.sendMail({
+      from: ORG_EMAIL,
+      to: ticketData.TEAM_EMAIL,
+      subject: `Your ticket for ${eventName}!!`,
+      // text: `Dear ${ticketData.TEAM_NAME},\n\nPlease find attached your PDF ticket for ${eventName}\n\nRegards,\nSC_CSBS`,
 
-  let info = await transporter.sendMail({
-    from: process.env.SOURCE_EMAIL,
-    to: leaderEmail,
-    subject: `Your ticket for ${eventName}!!`,
-    text: `Dear ${leaderName},\n\nPlease find attached your PDF ticket for ${eventName}\n\nRegards,\nSC_CSBS`,
+      // `Hi ${teamName},\n\nPlease find attached your PDF ticket for ${eventName}.\n\nBest regards,\nSC_CSBS`,
 
-    // `Hi ${leaderName},\n\nPlease find attached your PDF ticket for ${eventName}.\n\nBest regards,\nSC_CSBS`,
+      html: `<h3>Hi ${ticketData.TEAM_NAME}👋,</h3><br/><br/>
+      <h2>Toh kaisi chal rahi hai 🧠 ki kasrat 🏋??</h2> <br/> 
+      
+      We could 👂 your excitement loud so here is the event ticket 🎫 specially for you. 🥳 <br/> <br/>
+       
+      📢📢 Team leaders please communicate the following points to your team members:<br>
+      <ul>
+      <li>⏰ Check your alloted slot and come atleast <b>30 mins</b> before the event for qr verification.</li>
+      <li>🆔 All the team members should be present with their <b>College ID cards</b> for member identification.</li> 
+      <li>🧾 Team leaders must carry the <b>Payment receipt</b> and the event ticket attached in this mail.</li>
+      </ul>
 
-    attachments: [
-      {
-        filename: `ticket_${teamID}.pdf`,
-        content: pdfData,
-      },
-    ],
-  });
+      <br/> So, buckle your seat belts 🚀 and get ready for <b>${eventName} 🔍 2023</b>. <br/><br/>
+      
+      
+      If you have any questions or concerns, please do not hesitate to contact us at ${ORG_EMAIL} or </br>
+      +91 8436351337 / +91 9832609948 / +91 7059445497.<br/><br/>
+      All the Best!<br/><br/>
+      Regards,<br/>
+      Team SC_CSBS<br/>
+      Academy of Technology<br/>`,
 
-  // console.log("info", info);
+      attachments: [
+        {
+          filename: `${eventName}_ticket.pdf`,
+          path: pdfPath,
+        },
+      ],
+    });
+
+    console.log("info", info);
+    fs.unlinkSync(pdfPath);
+    return true;
+  }
+  catch(e){
+    console.log(e);
+    return false;
+  }
 };
 
 module.exports = { sendWelcomeMail, sendEventMail };

@@ -19,6 +19,11 @@ app.use(cors({ origin: "*" }));
 
 // Middleware for Router module
 app.use(require('./router/register'));
+app.use(require('./router/login'));
+app.use(require('./router/sendticket'));
+app.use(require('./router/signout'));
+app.use(require('./router/getdata'));
+
 
 // Start the server
 app.listen(PORT, () => {

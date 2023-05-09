@@ -37,24 +37,4 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/generateticket", async (req, res) => {
-  const Teams = await Registration.find({});
-
-  for(var i = 0; i< Teams.length; i++){
-    // console.log("idm", Teams[i]._id);
-  
-    const ticketData = {
-      TICKET_ID: Teams[i]._id.toString(),
-      TEAM_NAME: Teams[i].team.teamName,
-    };
-  
-    // PDF ticket gen
-    let resp = await generatePDFTicket(ticketData);
-    if(!resp)
-      res.status(422).json({ message: "Ticket error" });
-  }
-
-  res.status(200).json({ message: "done" });
-});
-
 module.exports = router;
